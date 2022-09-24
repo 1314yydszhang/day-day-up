@@ -1,0 +1,28 @@
+//编写一个函数，将数组中的10个整数完全颠倒顺序
+void inv(int* x, int sz)
+{
+	int* left, * right;
+	int tmp;
+	for (left = x,right=x+sz-1; left<=right; left++,right--)
+	{
+		tmp = *left;
+		*left = *right;
+		*right = tmp;
+	}
+}
+int main()
+{
+	int i, a[] = { 2,1,5,7,3,7,8,2,8,2 };
+	int sz = sizeof(a) / sizeof(a[0]);
+	for (i = 00; i < sz; i++)
+	{
+		printf("%d", a[i]);
+	}
+	printf("\n");
+	inv(a, sz);
+	for (i = 00; i < sz; i++)
+	{
+		printf("%d", a[i]);
+	}
+	printf("\n");
+}
