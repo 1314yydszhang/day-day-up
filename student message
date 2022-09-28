@@ -1,0 +1,80 @@
+2. 输入若干个学生信息（包括学号、姓名和某科成绩），输入学号为0时输入结束，建立一个单向链表，再输入一个成绩值，将成绩大于等于该值的学生信息输出。
+输入输出示例： 1 Zhang 78 2 Wang
+#include <stdio.h>
+#include <stdlib.h>
+#include<string.h>
+typedef struct node {
+    int id;
+    char name[20];
+    int math;
+    struct node* next;
+}Lnode, * LinkList;
+int m = sizeof(Lnode);
+void CreateListHead(LinkList head)
+{
+    LinkList s, rear;
+    head->next = NULL;
+    rear = head;
+    int n, e;
+    char a[20];
+    scanf("%d", &n);
+    scanf("%s", a);
+    scanf("%d", &e);
+    while (n != 0) {
+
+        s = (LinkList)malloc(m);
+        s->id = n;
+        strcpy(s->name, a);
+        s->math = e;
+        //s->next = head->next;
+        rear->next = s;
+        rear = s;//head->next=rear,赋值相等可体现替换
+        rear->next = NULL;
+        scanf("%d", &n);
+        scanf("%s", a);
+        scanf("%d", &e);
+        
+    }
+    
+}
+void TraverseList(LinkList head)
+{
+    LinkList p;
+    int a;
+    p = head->next;
+    scanf("%d", &a);
+    while (p)
+    {
+        if (p->math >= a)
+        {
+            printf("%d\t%s\t%d\n", p->id, p->name, p->math);
+
+        }p = p->next;
+    }
+
+}
+void freelist(LinkList head)
+{
+    LinkList cur, next;
+    cur = head->next;
+    head->next = NULL;
+    while (cur)
+    {
+        next = cur->next;
+        free(cur);
+        cur = next;
+    }
+
+}
+int main()
+{
+    struct node* head;
+    head = (LinkList)malloc(m);
+    CreateListHead(head);
+    TraverseList(head);
+    freelist(head);
+    return 0;
+}
+
+
+
