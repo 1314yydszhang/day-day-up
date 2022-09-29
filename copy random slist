@@ -1,0 +1,53 @@
+struct Node* copyRandomList(struct Node* head) {
+	struct Node*   cur = head;
+	
+	//复制节点插入原节点后
+	while (cur)
+	{
+		struct Node* copy = (struct Node*)malloc(sizeof(struct Node));
+		copy->val = cur->val;
+
+		copy->next = cur->next;
+		cur->next = copy;
+		cur = copy->next;
+	}
+
+	//由原节点，处理copy节点的random
+	cur = head;
+	while (cur)
+	{
+		struct Node* copy = cur->next;
+		if (cur->random == NULL)
+		{
+			copy->random = NULL;
+		}
+		else
+		{
+			copy->random = cur->random->next;
+		}
+		
+		cur = copy->next;
+	}
+	//取节点
+	struct Node* copyHead = NULL, * copyTail = NULL;
+	cur = head;
+	while (cur)
+	{
+		struct Node* copy = cur->next;
+		struct Node* next = copy->next;
+		if (copyTail == NULL)
+
+		{
+			copyHead = copyTail = copy;
+		}
+		else
+		{
+			copyTail->next = copy;//链接上去
+			copyTail = copy;//迭代下一个
+		}
+		cur->next = next;
+		cur = next;
+		
+	}
+	return copyHead;
+}
