@@ -1,0 +1,73 @@
+struct data
+{
+	int a;
+	struct data* next;
+};
+void TEXT1(struct data* head)
+{
+	
+	struct data* input = head,*swag;
+	int i ;
+	scanf("%d", &i);
+	while (i != -1)
+	{
+		
+		swag= (struct data*)malloc(sizeof(struct data));
+		
+		swag->a = i;
+		swag->next = head->next;
+		input ->next=swag;
+		input = swag;
+		input ->next=NULL;
+		
+		scanf("%d", &i);
+	}
+}
+struct data* Reserve(struct data* head)
+
+{
+	if (head->next == NULL)
+	{
+		return NULL;
+	}
+	struct data* cur = head->next, * newhead = NULL ;
+	while (cur)
+	{
+		struct data* next = cur->next;
+		cur->next = newhead;
+		newhead = cur;
+		cur = next;
+	}
+	head->next = newhead;
+	return head->next;
+}
+void Print(struct data* head)
+{
+	struct data* cur = head->next;
+	do//输出头节点链表
+	{
+		printf("%d->", cur->a);
+
+		cur = cur->next;
+
+	} while (cur != NULL);
+}
+void Destory(head)
+{
+	struct data* cur = head;
+	while (cur)
+	{
+		struct data* next = cur->next;
+		free(cur);
+		cur = next;
+	}
+}
+int main()
+{
+	struct data* head = (struct data*)malloc(sizeof(struct data));//头节点
+	TEXT1(head);
+	Reserve(head);//从头到尾翻转
+	Print(head);
+	Destory(head);
+	return 0;
+}
