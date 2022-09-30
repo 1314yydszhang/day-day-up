@@ -1,0 +1,38 @@
+struct ListNode* createlist() {
+	struct ListNode* head = NULL, * p, * q = NULL;
+	int data;
+	scanf("%d", &data);
+	while (data != -1) {
+		p = (struct ListNode*)malloc(sizeof(struct ListNode));//没有哨兵
+		p->data = data;
+		p->next = NULL;
+		if (head == NULL) {
+			head = p;
+			q = p;
+		}
+		else {
+			q->next = p;
+			q = p;
+		}
+		scanf("%d", &data);
+	}
+	return head;
+}
+struct ListNode* deleteeven(struct ListNode* head) {
+	struct ListNode* p = NULL, * q = NULL;
+
+	while (head && head->data % 2 == 0) {
+		q = head;
+		head = head->next;
+		free(q);
+	}
+	if (head == NULL) return NULL;
+	p = head;
+	while (p->next) {
+		if (p->next->data % 2 == 0) {
+			p->next = p->next->next;
+		}
+		else p = p->next;
+	}
+	return head;
+}
